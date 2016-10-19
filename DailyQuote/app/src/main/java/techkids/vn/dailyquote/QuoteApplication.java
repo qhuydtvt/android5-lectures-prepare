@@ -1,19 +1,16 @@
 package techkids.vn.dailyquote;
 
 import android.app.Application;
-import android.graphics.Bitmap;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Log;
-import android.view.View;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
-import com.sromku.simple.storage.SimpleStorage;
-import com.sromku.simple.storage.Storage;
 
-import techkids.vn.dailyquote.constants.Constants;
-import techkids.vn.dailyquote.managers.FileManager;
+import techkids.vn.dailyquote.fragments.FileManager;
+import techkids.vn.dailyquote.managers.NetworkManager;
 import techkids.vn.dailyquote.managers.Preference;
 
 /**
@@ -29,33 +26,15 @@ public class QuoteApplication extends Application {
         super.onCreate();
 
         Preference.init(this);
+        NetworkManager.init(this);
         FileManager.init(this);
         initImageLoader();
 
-//        final Storage internalStorage = SimpleStorage.getInternalStorage(this);
-//
-//        ImageLoader.getInstance().loadImage(Constants.UNPLASH_API, new ImageLoadingListener() {
-//            @Override
-//            public void onLoadingStarted(String imageUri, View view) {
-//
-//            }
-//
-//            @Override
-//            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-//
-//            }
-//
-//            @Override
-//            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-//                FileManager.getInstance().save("unplash", loadedImage);
-//                Log.d(TAG, "Loading image done");
-//            }
-//
-//            @Override
-//            public void onLoadingCancelled(String imageUri, View view) {
-//
-//            }
-//        });
+        if(NetworkManager.getInstance().isConnectedToInternet()) {
+            Log.d(TAG, "Connected");
+        } else {
+            Log.d(TAG, "Not connected");
+        }
     }
 
     private void initImageLoader() {

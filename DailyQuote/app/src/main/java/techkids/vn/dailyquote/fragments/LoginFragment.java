@@ -16,8 +16,6 @@ import butterknife.OnClick;
 import techkids.vn.dailyquote.R;
 import techkids.vn.dailyquote.managers.Preference;
 import techkids.vn.dailyquote.models.FragmentEvent;
-import techkids.vn.dailyquote.models.ServiceEvent;
-import techkids.vn.dailyquote.services.UnplashDownloadService;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -50,14 +48,10 @@ public class LoginFragment extends Fragment {
         // 2. Save data to SharedPreference
         Preference.getInstance().putUsername(username);
 
-        EventBus.getDefault().post(new ServiceEvent(UnplashDownloadService.class));
-
         // 3. Transit to quote Fragment
         EventBus.getDefault().post(new FragmentEvent(
                 new QuoteFragment(),
                 false
         ));
-
-
     }
 }

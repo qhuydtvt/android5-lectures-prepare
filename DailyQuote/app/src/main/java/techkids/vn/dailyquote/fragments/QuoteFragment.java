@@ -2,8 +2,6 @@ package techkids.vn.dailyquote.fragments;
 
 
 import android.app.Activity;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Html;
@@ -32,10 +30,7 @@ import okhttp3.Response;
 import techkids.vn.dailyquote.R;
 import techkids.vn.dailyquote.constants.Constants;
 import techkids.vn.dailyquote.jsonmodels.QuoteJSONModel;
-import techkids.vn.dailyquote.managers.FileManager;
 import techkids.vn.dailyquote.managers.Preference;
-import techkids.vn.dailyquote.models.ServiceEvent;
-import techkids.vn.dailyquote.services.UnplashDownloadService;
 
 import static techkids.vn.dailyquote.constants.Constants.QUOTE_API;
 
@@ -71,7 +66,6 @@ public class QuoteFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_quote, container, false);
         ButterKnife.bind(this, view);
         setupUI();
-        runDownloadImageTasks();
         return view;
     }
 
@@ -131,12 +125,5 @@ public class QuoteFragment extends Fragment {
                 }
             }
         });
-    }
-
-    private void runDownloadImageTasks() {
-        if (Preference.getInstance().getImageCount() == - 1) {
-            ServiceEvent serviceEvent = new ServiceEvent(UnplashDownloadService.class);
-            EventBus.getDefault().post(serviceEvent);
-        }
     }
 }

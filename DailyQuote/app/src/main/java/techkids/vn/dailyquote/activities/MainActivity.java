@@ -7,6 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.sromku.simple.storage.SimpleStorage;
+import com.sromku.simple.storage.Storage;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
@@ -16,8 +19,6 @@ import techkids.vn.dailyquote.fragments.LoginFragment;
 import techkids.vn.dailyquote.fragments.QuoteFragment;
 import techkids.vn.dailyquote.managers.Preference;
 import techkids.vn.dailyquote.models.FragmentEvent;
-import techkids.vn.dailyquote.models.ServiceEvent;
-import techkids.vn.dailyquote.services.UnplashDownloadService;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,6 +38,23 @@ public class MainActivity extends AppCompatActivity {
         } else {
             changeFragment(new QuoteFragment(), false);
         }
+
+        /*
+        * if (isConnectedToInternet) {
+        *   loadOnline();
+        *   prepareOfflineData();
+        * } else {
+        *   loadOffLine();
+        * }
+        * */
+
+//
+//        Storage storage = SimpleStorage.getInternalStorage(this);
+////        storage.createFile("text", "quote.txt", "No pain, no gain");
+//        String content = storage.readTextFile("text", "quote.txt");
+//
+//        Log.d(TAG, String.format("Read done : %s", content));
+
     }
 
     @Subscribe
@@ -44,14 +62,6 @@ public class MainActivity extends AppCompatActivity {
         changeFragment(fragmentEvent.getFragment(), fragmentEvent.isAddToBackStack());
     }
 
-    @Subscribe
-    public void OnServiceEvent(ServiceEvent serviceEvent) {
-        Log.d(TAG, "OnServiceEvent");
-
-        Intent intent = new Intent(this, UnplashDownloadService.class);
-
-        startService(intent);
-    }
 
     public void changeFragment(Fragment fragment, boolean addToBackstack) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager()
