@@ -10,7 +10,9 @@ import android.content.SharedPreferences;
 public class Preference {
     private static final String KEY = "Quote";
     private static final String USER_NAME_KEY = "Username";
-    private static final String IMAGE_COUNT_KEY = "ImageCount";
+
+    private static final String OFFLINE_IMAGE_COUNT_KEY = "ImageCount";
+
     private SharedPreferences sharedPreferences;
     
     public Preference(Context context) {
@@ -29,15 +31,16 @@ public class Preference {
                 .commit();
     }
 
+    public int getImageCount() {
+        return sharedPreferences
+                .getInt(OFFLINE_IMAGE_COUNT_KEY, -1);
+    }
+
     public void putImageCount(int imageCount) {
         sharedPreferences
                 .edit()
-                .putInt(IMAGE_COUNT_KEY, imageCount)
+                .putInt(OFFLINE_IMAGE_COUNT_KEY, imageCount)
                 .commit();
-    }
-
-    public int getImageCount() {
-        return sharedPreferences.getInt(IMAGE_COUNT_KEY, -1);
     }
 
     private static Preference instance;

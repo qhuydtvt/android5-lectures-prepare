@@ -1,15 +1,12 @@
 package techkids.vn.dailyquote;
 
 import android.app.Application;
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.util.Log;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
-import techkids.vn.dailyquote.fragments.FileManager;
+import techkids.vn.dailyquote.managers.FileManager;
 import techkids.vn.dailyquote.managers.NetworkManager;
 import techkids.vn.dailyquote.managers.Preference;
 
@@ -35,6 +32,8 @@ public class QuoteApplication extends Application {
         } else {
             Log.d(TAG, "Not connected");
         }
+
+
     }
 
     private void initImageLoader() {

@@ -19,6 +19,7 @@ import techkids.vn.dailyquote.fragments.LoginFragment;
 import techkids.vn.dailyquote.fragments.QuoteFragment;
 import techkids.vn.dailyquote.managers.Preference;
 import techkids.vn.dailyquote.models.FragmentEvent;
+import techkids.vn.dailyquote.services.UnplashDowloadService;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,13 +41,16 @@ public class MainActivity extends AppCompatActivity {
         }
 
         /*
-        * if (isConnectedToInternet) {
-        *   loadOnline();
+        * if(isConnectedToInternet) {
+        *   loadOnlineData();
         *   prepareOfflineData();
-        * } else {
-        *   loadOffLine();
+        * }
+        * else {
+        *   loadOfflineData();
         * }
         * */
+
+
 
 //
 //        Storage storage = SimpleStorage.getInternalStorage(this);
@@ -55,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
 //
 //        Log.d(TAG, String.format("Read done : %s", content));
 
+        Intent intent = new Intent(this, UnplashDowloadService.class);
+        startService(intent);
     }
 
     @Subscribe
